@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+
+  redis:
+    image: redis:latest
+    hostname: redis
+
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: ./scheduler/Dockerfile
+    hostname: scheduler
+    command: ./scheduler/scripts/run_scheduler.sh
+    volumes:
+      - .:/app
+    ports:
+      - "8002:18888"
+    links:
+      - rabbit
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: ./scheduler/Dockerfile
+    command: ./scheduler/scripts/run_celery.sh
+    volumes:
+      - .:/app
+    links:
+      - rabbit
+      - redis
+    depends_on:
+      - rabbit
+
+  messages:
+    build:
+      context: .
+      dockerfile: ./messages/Dockerfile
+    command: ./messages/scripts/run_messages.sh
+    hostname: messages
+    ports:
+      - "8000:18888"
+    volumes:
+      - .:/app
+
+  data_layer:
+    build:
+      context: .
+      dockerfile: ./data_layer/Dockerfile
+    hostname: data_layer
+    ports:
+      - "8001:18888"
+    volumes:
+      - .:/app
+
+  web:
+    build:
+      context: .
+      dockerfile: ./process_centric/Dockerfile
+    hostname: web
+    volumes:
+      - .:/app
+    ports:
+      - "5050:5000"

@@ -1,0 +1,6 @@
+celery[redis]
+flask
+requests
+flask-expects-json
+flask_restful
+iso8601

@@ -1,0 +1,6 @@
+flask
+pyjwt
+datetime
+uuid
+Flask-SQLAlchemy
+flask-expects-json
