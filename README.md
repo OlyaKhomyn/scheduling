@@ -12,6 +12,7 @@ This is the source code of the message scheduling project.
 * Redis
 
 ## Project diagram
+![diagram-2](https://user-images.githubusercontent.com/41692593/209727518-d0ca725f-e5c5-485e-9fa7-1625d6207f2c.png)
 
 ## Install
 Build the containers with the following command.
