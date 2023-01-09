@@ -16,4 +16,3 @@ data_layer/app/views/__pycache__/
 process_centric/app/__pycache__/
 process_centric/app/views/__pycache__/
 process_centric/env/
-data_layer/app/database.db
