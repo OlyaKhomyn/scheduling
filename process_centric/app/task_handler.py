@@ -85,8 +85,6 @@ class TaskHandler:
 
     def parse_services(self):
         if 'telegram' in self.services:
-            with open('bla.txt', 'a') as f:
-                f.write('here\n')
             tel_response, tel_status = self.handle_telegram()
             if tel_status != 200:
                 return tel_response, tel_status
